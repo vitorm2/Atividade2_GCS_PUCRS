@@ -24,9 +24,15 @@ public class MainApp extends Application {
     private Stage primaryStage;
 	private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 	private ObservableList<Cliente> lista2 = FXCollections.observableArrayList(listaClientes);
-
+	private double porcentoM;
+	private double porcentoF;
+	private int qtd_sociosAtivos;
+	private int qtd_naoSocios;
 
 	public MainApp() {
+//		Cliente c1 = new Cliente("Pedro");
+//		listaClientes.add(c1);
+//		saveData();
 	}
 
 
@@ -64,7 +70,7 @@ public class MainApp extends Application {
             primaryStage.show();
 
 
-            // Dá ao controlador acesso à the main app.
+            // Dï¿½ ao controlador acesso ï¿½ the main app.
             Controller controller = loader.getController();
             controller.setMainApp(this);
 
@@ -98,11 +104,12 @@ public class MainApp extends Application {
 
 		}
 		catch(ClassNotFoundException e) {
-		  System.out.println("Classe Cliente não encontrada!");
+		  System.out.println("Classe Cliente nï¿½o encontrada!");
 		  System.exit(1);
 		}
 		catch(IOException e) {
 		  System.out.println(e.getMessage());
+		  System.out.println("CAIU AQUI");
 		  System.exit(1);
 		}
 	}
@@ -110,5 +117,56 @@ public class MainApp extends Application {
 	public ObservableList<Cliente> getClienteData(){
 		return this.lista2;
 	}
+	
+	public  void adicionarCliente(Cliente a) {
+		listaClientes.add(a);
+	}
+	
+	public void porcentagemGenero() {
+		double m=0;
+		double f=0;
+		
+		
+		for (int i=0; i<listaClientes.size();i++) {
+			if (listaClientes.get(i).getGenero()=='m'){
+				m=m+1;
+			}
+			
+		}
+		m=(m/listaClientes.size());
 
+		
+		
+		for (int i=0; i<listaClientes.size();i++) {
+			if (listaClientes.get(i).getGenero()=='f'){
+				f=f+1;
+			}
+			
+		}
+		f=(f/listaClientes.size());
+		System.out.println("Porcentagem de homens: "+(m*100)+"%");
+		System.out.println("Porcentagem de mulheres: "+(f*100)+"%");		
+	}
+
+	public Cliente procurarPorCpf(String cpf) {
+		for(int i=0;i<listaClientes.size();i++) {
+	          if(cpf.equals(listaClientes.get(i).getCpf())) {
+	          return listaClientes.get(i);
+	          }
+	          
+	      }
+		return null;
+	}
+	
+	public int quantasPessoasAtivas() {
+		int c=0;
+		for (int i=0; i<listaClientes.size();i++) {
+			if (listaClientes.get(i).getStatus()==true) {
+				c=c+1;
+			}
+		}
+		
+		return c;
+	}
+	
 }
