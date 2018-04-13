@@ -2,14 +2,13 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.Serializable;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import business.Cliente;
 
-class ClienteTest{
+class ClienteTest {
 
 	private Cliente cli;
 	private String nome = "nome";
@@ -18,23 +17,37 @@ class ClienteTest{
 	private int idade = 42;
 	private boolean status = false;
 
-	@Before
-	public void set() {cli = new Cliente(nome, CPF, genero, idade);}
+
 
 	@Test
-	void testNome() {assertEquals(nome, cli.getNome());}
+	void testNome() {
+		cli = new Cliente(nome, CPF, genero, idade);
+		assertEquals(nome, cli.getNome());
+	}
 
 	@Test
-	void testCPF() {assertEquals(CPF, cli.getCpf());}
-	
+	void testCPF() {
+		cli = new Cliente(nome, CPF, genero, idade);
+		assertEquals(CPF, cli.getCpf());
+	}
+
 	@Test
-	void testGenero() {assertEquals(genero, cli.getGenero());}
-	
+	void testGenero() {
+		cli = new Cliente(nome, CPF, genero, idade);
+		assertEquals(genero, cli.getGenero());
+	}
+
 	@Test
-	void testIdade() {assertEquals(idade, cli.getIdade());}
-	
+	void testIdade() {
+		cli = new Cliente(nome, CPF, genero, idade);
+		assertEquals(idade, cli.getIdade());
+	}
+
 	@Test
-	void testStatus() {cli.setStatus(status); assertEquals(status, cli.getStatus());}
-	
+	void testStatus() {
+		cli = new Cliente(nome, CPF, genero, idade);
+		cli.setStatus(status);
+		assertEquals(status, cli.getStatus());
+	}
 
 }
