@@ -8,39 +8,30 @@ import org.junit.jupiter.api.Test;
 import business.Cliente;
 
 class ClienteTest {
-	
+
 	private Cliente cli;
+	private String nome = "nome";
+	private String CPF = "1234567890";
+	private char genero = 'M';
+	private int idade = 42;
+	private boolean status = true;
 
 	@Before
-	public void setUp() {
-	cli = new Cliente("nome", "cpf02859", 'M', 77);
-	
-	}
+	public void setUp() {cli = new Cliente(nome, CPF, genero, idade);}
+
+	@Test
+	void testNome() {assertEquals(nome, cli.getNome());}
+
+	@Test
+	void testCPF() {assertEquals(CPF, cli.getCpf());}
 	
 	@Test
-	void testNome() {
-		String nome = cli.getNome();
-		System.out.println(nome);
-		if(nome == null || nome == "")
-			fail("Erro: Nome");
-	}
+	void testGenero() {assertEquals(genero, cli.getGenero());}
 	
 	@Test
-	void testCPF() {
-		String CPF = cli.getCpf();
-		if(CPF == null || CPF == "" || !verificaSeEhInteiro(CPF))
-			fail("Erro: CPF");
-	}
+	void testIdade() {assertEquals(idade, cli.getIdade());}
 	
-	public static boolean verificaSeEhInteiro(String s) {
-		boolean resposta = true;
-		for (int i = 0; i < s.length(); i++) {
-			if (!Character.isDigit(s.charAt(i))) { // Verifica caractere por caractere se � um d�gito
-				resposta = false;
-				break;
-			}
-		}
-		return resposta;
-	}
+	@Test
+	void testStatus() {cli.setStatus(status); assertEquals(status, cli.getStatus());}
 
 }
