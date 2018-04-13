@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import business.Cliente;
+import business.ClienteSocio;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,23 +17,35 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import uinterface.AddController;
 import uinterface.Controller;
+import uinterface.MilhagensController;
+import uinterface.ResgitroSaidaController;
+
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
 	private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 	private ObservableList<Cliente> lista2 = FXCollections.observableArrayList(listaClientes);
+	private ArrayList<Cliente> historicoClientes = new ArrayList<Cliente>();
+	private ObservableList<Cliente> listaOBhistorico = FXCollections.observableArrayList(historicoClientes);
 	private double porcentoM;
 	private double porcentoF;
 	private int qtd_sociosAtivos;
 	private int qtd_naoSocios;
 
+	private int contadorSocios;
+
 	public MainApp() {
-//		Cliente c1 = new Cliente("Pedro");
+//		ClienteSocio c1 = new ClienteSocio("Joao", "asdasda", "m".charAt(0), 15, 1, 2000);
+//		Cliente c2 =  new Cliente("Pedro", "asda", "m".charAt(0), 67);
 //		listaClientes.add(c1);
+//		listaClientes.add(c2);
 //		saveData();
+
 	}
 
 
@@ -79,6 +92,81 @@ public class MainApp extends Application {
         }
     }
 
+    public void showAdicionarMilhagens(ClienteSocio cliente){
+
+    	try {
+    	FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(MainApp.class.getResource("/uinterface/AdicionarMilhagensScreen.fxml"));
+         AnchorPane page = (AnchorPane) loader.load();
+         Stage dialogStage = new Stage();
+         dialogStage.setTitle("Adicionar Milhagens");
+         dialogStage.initModality(Modality.WINDOW_MODAL);
+         dialogStage.initOwner(primaryStage);
+         Scene scene = new Scene(page);
+         dialogStage.setScene(scene);
+
+         // Define a Cama no controller.
+         MilhagensController controller = loader.getController();
+         controller.setDialogStage(dialogStage);
+         controller.setCliente(cliente);
+         controller.setMainApp(this);
+
+         dialogStage.showAndWait();
+
+    	} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    public void showAddCliente(){
+    	try {
+        	FXMLLoader loader = new FXMLLoader();
+             loader.setLocation(MainApp.class.getResource("/uinterface/AddScreen.fxml"));
+             AnchorPane page = (AnchorPane) loader.load();
+             Stage dialogStage = new Stage();
+             dialogStage.setTitle("Adicionar Cliente");
+             dialogStage.initModality(Modality.WINDOW_MODAL);
+             dialogStage.initOwner(primaryStage);
+             Scene scene = new Scene(page);
+             dialogStage.setScene(scene);
+
+             // Define a Cama no controller.
+             AddController controller = loader.getController();
+             controller.setDialogStage(dialogStage);
+             controller.setMainApp(this);
+
+             dialogStage.showAndWait();
+
+        	} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    }
+
+    public void showRegistrarSaida(){
+    	try {
+        	FXMLLoader loader = new FXMLLoader();
+             loader.setLocation(MainApp.class.getResource("/uinterface/RegistroSaidaScreen.fxml"));
+             AnchorPane page = (AnchorPane) loader.load();
+             Stage dialogStage = new Stage();
+             dialogStage.setTitle("Registrar Saida");
+             dialogStage.initModality(Modality.WINDOW_MODAL);
+             dialogStage.initOwner(primaryStage);
+             Scene scene = new Scene(page);
+             dialogStage.setScene(scene);
+
+             // Define a Cama no controller.
+             ResgitroSaidaController controller = loader.getController();
+             controller.setDialogStage(dialogStage);
+             controller.setMainApp(this);
+
+             dialogStage.showAndWait();
+        	} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    }
 
 
 	public void saveData(){
@@ -117,35 +205,60 @@ public class MainApp extends Application {
 	public ObservableList<Cliente> getClienteData(){
 		return this.lista2;
 	}
-	
-	public  void adicionarCliente(Cliente a) {
-		listaClientes.add(a);
+
+	public ObservableList<Cliente> getHistoricoData(){
+		return this.listaOBhistorico;
 	}
-	
+
+	public  void adicionarCliente(Cliente a) {
+		if(a instanceof ClienteSocio){
+			listaClientes.add(a);
+			lista2 =  FXCollections.observableArrayList(listaClientes);
+			contadorSocios++;
+		}
+		else{
+			listaClientes.add(a);
+			lista2 =  FXCollections.observableArrayList(listaClientes);
+		}
+	}
+
+	public void removerCliente(Cliente a){
+		historicoClientes.add(a);
+		listaOBhistorico =  FXCollections.observableArrayList(historicoClientes);
+
+		listaClientes.remove(a);
+		lista2 =  FXCollections.observableArrayList(listaClientes);
+	}
+
+	public int getContadorSocios(){
+		return contadorSocios;
+	}
+
 	public void porcentagemGenero() {
 		double m=0;
 		double f=0;
-		
-		
+
+
 		for (int i=0; i<listaClientes.size();i++) {
-			if (listaClientes.get(i).getGenero()=='m'){
+			if (listaClientes.get(i).getGenero()=='m' && listaClientes.get(i).getStatus()==true){
 				m=m+1;
 			}
-			
-		}
-		m=(m/listaClientes.size());
 
-		
-		
+		}
+		m=(m/quantasPessoasAtivas());
+
+
+
 		for (int i=0; i<listaClientes.size();i++) {
-			if (listaClientes.get(i).getGenero()=='f'){
+			if (listaClientes.get(i).getGenero()=='f' && listaClientes.get(i).getStatus()==true){
 				f=f+1;
 			}
-			
+
 		}
-		f=(f/listaClientes.size());
-		System.out.println("Porcentagem de homens: "+(m*100)+"%");
-		System.out.println("Porcentagem de mulheres: "+(f*100)+"%");		
+		f=(f/quantasPessoasAtivas());
+
+		porcentoM = m*100;
+		porcentoF = f*100;
 	}
 
 	public Cliente procurarPorCpf(String cpf) {
@@ -153,20 +266,46 @@ public class MainApp extends Application {
 	          if(cpf.equals(listaClientes.get(i).getCpf())) {
 	          return listaClientes.get(i);
 	          }
-	          
+
 	      }
 		return null;
 	}
-	
+
 	public int quantasPessoasAtivas() {
-		int c=0;
-		for (int i=0; i<listaClientes.size();i++) {
-			if (listaClientes.get(i).getStatus()==true) {
-				c=c+1;
+		int qtd = 0;
+		for(Cliente c1: listaClientes){
+			if(c1.getStatus()){
+				qtd++;
 			}
 		}
-		
-		return c;
+
+		return qtd;
 	}
-	
+
+	public int quantidadeSocios(){
+		int qtd = 0;
+
+		for(Cliente c1: listaClientes){
+			if(c1 instanceof ClienteSocio && c1.getStatus()==true){
+				qtd++;
+			}
+		}
+
+		return qtd;
+	}
+
+	public int quantidadeNaoSocios(){
+		int qtdSocios = quantidadeSocios();
+		int qtdTotal = quantasPessoasAtivas();
+		return qtdTotal - qtdSocios;
+	}
+
+	public double getPorcentagemM(){
+		return porcentoM;
+	}
+
+	public double getPorcentagemF(){
+		return porcentoF;
+	}
+
 }

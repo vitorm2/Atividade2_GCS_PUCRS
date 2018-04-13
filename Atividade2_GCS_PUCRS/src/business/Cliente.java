@@ -44,17 +44,22 @@ public class Cliente implements Serializable {
 		status = Status;
 	}
 
-	public StringProperty identificadorProperty(){
+	public StringProperty nomeProperty(){
 		StringProperty nomeProperty = new SimpleStringProperty(this.nome);
 		return nomeProperty;
 	}
-	
+
+	public StringProperty cpfProperty(){
+		StringProperty cpfProperty = new SimpleStringProperty(this.cpf);
+		return cpfProperty;
+	}
+
 	@Override
 	public String toString() {
 		return "Cliente [nome=" + nome + ", cpf=" + cpf + ", genero=" + genero + ", idade=" + idade + ", status="
 				+ status + "]";
 	}
 
-	
+
 
 }

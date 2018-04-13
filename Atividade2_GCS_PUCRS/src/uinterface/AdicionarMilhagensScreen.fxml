@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uinterface.MilhagensController">
+   <children>
+      <TextField fx:id="qtdMilhagens" layoutX="78.0" layoutY="63.0" prefHeight="25.0" prefWidth="195.0" />
+      <Button fx:id="adicionarButton" layoutX="141.0" layoutY="99.0" mnemonicParsing="false" onAction="#buttonAdicionarFinal" text="Adicionar" />
+      <Label layoutX="78.0" layoutY="40.0" text="Quantidade:" />
+   </children>
+</AnchorPane>
