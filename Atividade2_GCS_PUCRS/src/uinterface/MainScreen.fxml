@@ -22,7 +22,7 @@
                      </columnResizePolicy>
                   </TableView>
                   <Label layoutX="14.0" layoutY="12.0" text="Nº pessoas no Bar:" AnchorPane.topAnchor="12.0" />
-                  <TextField fx:id="textoProcurar" layoutX="439.0" layoutY="468.0" prefHeight="25.0" prefWidth="140.0" />
+                  <TextField fx:id="searchTexto" layoutX="439.0" layoutY="468.0" prefHeight="25.0" prefWidth="140.0" />
                   <Button fx:id="pesquisarButton" layoutX="365.0" layoutY="468.0" mnemonicParsing="false" onAction="#buttonPesquisar" text="Pesquisar" />
                   <Button fx:id="adicionarClienteButton" layoutY="468.0" mnemonicParsing="false" onAction="#buttonAdicionarCliente" text="Adicionar Cliente" />
                   <Button fx:id="registrarSaidaClienteButton" layoutX="114.0" layoutY="468.0" mnemonicParsing="false" onAction="#buttonRegistrarSaida" text="Registrar Saída" />
@@ -35,6 +35,7 @@
                   <Label fx:id="qtdSociosLabel" layoutX="74.0" layoutY="34.0" text="0" textFill="#f80505" />
                   <Label layoutX="206.0" layoutY="34.0" text="Nº não Sócios:" />
                   <Label fx:id="qtdNaoSociosLabel" layoutX="287.0" layoutY="34.0" text="0" textFill="#f50808" />
+                  <Button fx:id="mostrarDadosClienteButton" layoutX="219.0" layoutY="468.0" mnemonicParsing="false" onAction="#buttonDadosClientes" text="Dados Clientes" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="161.0">
@@ -44,15 +45,15 @@
                   <Label layoutX="14.0" layoutY="68.0" text="CPF:" />
                   <Label layoutX="14.0" layoutY="95.0" text="Sexo:" />
                   <Label layoutX="14.0" layoutY="122.0" text="Idade:" />
-                  <Label fx:id="nomeClienteLabel" layoutX="63.0" layoutY="40.0" text="Label" />
-                  <Label fx:id="cpfClienteLabel" layoutX="63.0" layoutY="68.0" text="Label" />
-                  <Label fx:id="generoClienteLabel" layoutX="63.0" layoutY="95.0" text="Label" />
-                  <Label fx:id="idadeClienteLabel" layoutX="63.0" layoutY="122.0" text="Label" />
+                  <Label fx:id="nomeClienteLabel" layoutX="63.0" layoutY="40.0" text="----" />
+                  <Label fx:id="cpfClienteLabel" layoutX="63.0" layoutY="68.0" text="----" />
+                  <Label fx:id="generoClienteLabel" layoutX="63.0" layoutY="95.0" text="----" />
+                  <Label fx:id="idadeClienteLabel" layoutX="63.0" layoutY="122.0" text="----" />
                   <Label fx:id="infoSocioLabel" layoutX="20.0" layoutY="296.0" text="Informações Sócio:" />
                   <Label fx:id="campoNumSocioLabel" layoutX="21.0" layoutY="324.0" text="Num:" />
-                  <Label fx:id="numSocioLabel" layoutX="69.0" layoutY="324.0" text="Label" />
+                  <Label fx:id="numSocioLabel" layoutX="94.0" layoutY="324.0" text="----" />
                   <Label fx:id="campoMilhagensLabel" layoutX="22.0" layoutY="351.0" text="Milhagens:" />
-                  <Label fx:id="milhagensLabel" layoutX="93.0" layoutY="351.0" text="Label" />
+                  <Label fx:id="milhagensLabel" layoutX="93.0" layoutY="351.0" text="----" />
                   <Button fx:id="adicionarMilhagensButton" layoutX="15.0" layoutY="374.0" mnemonicParsing="false" onAction="#buttonAdicionarMilhagens" text="Adicionar Milhagens" />
                   <Button fx:id="promoverSocioButton" layoutX="13.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonPromoverSocio" text="Promover Sócio" />
                </children></AnchorPane>

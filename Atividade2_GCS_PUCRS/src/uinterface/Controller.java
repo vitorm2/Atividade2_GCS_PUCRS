@@ -2,6 +2,8 @@ package uinterface;
 
 import business.Cliente;
 import business.ClienteSocio;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -11,6 +13,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+
 import app.MainApp;
 
 
@@ -63,9 +68,13 @@ public class Controller {
 	private Button promoverSocioButton;
 	@FXML
 	private Button adicionarMilhagensButton;
+	@FXML
+	private Button mostrarDadosClienteButton;
 
 	@FXML
-	private TextField textoProcurar;
+	private TextField searchTexto;
+
+	private ObservableList<Cliente> l1 = null;
 
 	private MainApp mainApp;
 
@@ -88,6 +97,8 @@ public class Controller {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 
+		ObservableList<Cliente>l1 = mainApp.getClienteData();
+
 		// Adiciona os dados da observable list na tabela
 		clienteTable.setItems(mainApp.getClienteData());
 		atualizaNumeros();
@@ -96,8 +107,8 @@ public class Controller {
 	public void atualizaNumeros(){
 		numPessoasLabel.setText(String.valueOf(mainApp.quantasPessoasAtivas()));
 		mainApp.porcentagemGenero();
-		porcMLabel.setText(String.valueOf(mainApp.getPorcentagemM()).substring(0, 3)+"%");
-		porcFLabel.setText(String.valueOf(mainApp.getPorcentagemF()).substring(0, 3)+"%");
+		porcMLabel.setText(String.valueOf(mainApp.getPorcentagemM()).substring(0, 4)+"%");
+		porcFLabel.setText(String.valueOf(mainApp.getPorcentagemF()).substring(0, 4)+"%");
 		qtdNaoSociosLabel.setText(String.valueOf(mainApp.quantidadeNaoSocios()));
 		qtdSociosLabel.setText(String.valueOf(mainApp.quantidadeSocios()));
 	}
@@ -165,11 +176,33 @@ public class Controller {
 
 	}
 
-	//FILTRAR POR NOME, CPF, IDADE, GENERO (OLHAR HISTÓRICO PROJETO SUMMERHOSTEL)
+	//FILTRAR POR NOME, CPF, IDADE, GENERO (OLHAR HISTï¿½RICO PROJETO SUMMERHOSTEL)
 	@FXML
 	private void buttonPesquisar(){
+		if(searchTexto.getText() != null){
+			ArrayList<Cliente>al = new ArrayList<>();
+			ObservableList<Cliente>l2 = FXCollections.observableArrayList(al);
+			ObservableList<Cliente>l1 = mainApp.getClienteData();
 
+				for(Cliente c1: l1){
+					if(c1.getNome().contains(searchTexto.getText().toString().toLowerCase()) ||
+							c1.getNome().contains(searchTexto.getText().toString().toUpperCase()) ||
+							c1.getNome().toLowerCase().contains(searchTexto.getText().toString()) ||
+							c1.getCpf().contains(searchTexto.getText().toString())){
+						l2.add(c1);
+					}
+				}
+			clienteTable.setItems(l2);
+		}else{
+			clienteTable.setItems(l1);
+			}
 
+	clienteTable.refresh();
+}
+
+	@FXML
+	private void buttonDadosClientes(){
+		mainApp.showDadosClientes();
 	}
 
 	//Funciona mais tem um bugzinho
@@ -191,7 +224,7 @@ public class Controller {
 	    } else {
 	        // Nada seleciondo.
 	        Alert alert = new Alert(AlertType.WARNING);
-	            alert.setTitle("Nenhuma seleção");
+	            alert.setTitle("Nenhuma seleï¿½ï¿½o");
 	            alert.setHeaderText("Nenhuma Pessoa Selecionada");
 	            alert.setContentText("Por favor, selecione uma pessoa na tabela.");
 	            alert.showAndWait();

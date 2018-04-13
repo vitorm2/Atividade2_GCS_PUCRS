@@ -11,18 +11,21 @@ import java.util.ArrayList;
 import business.Cliente;
 import business.ClienteSocio;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import uinterface.AddController;
 import uinterface.Controller;
 import uinterface.MilhagensController;
 import uinterface.ResgitroSaidaController;
+import uinterface.dadosClientesController;
 
 
 public class MainApp extends Application {
@@ -40,10 +43,35 @@ public class MainApp extends Application {
 	private int contadorSocios;
 
 	public MainApp() {
-//		ClienteSocio c1 = new ClienteSocio("Joao", "asdasda", "m".charAt(0), 15, 1, 2000);
-//		Cliente c2 =  new Cliente("Pedro", "asda", "m".charAt(0), 67);
-//		listaClientes.add(c1);
-//		listaClientes.add(c2);
+		ClienteSocio c1 = new ClienteSocio("Joao", "11", "m".charAt(0), 15, 1, 2000);
+		Cliente c2 =  new Cliente("Pedro", "22", "m".charAt(0), 67);
+		ClienteSocio c3 = new ClienteSocio("Fabio", "33", "m".charAt(0), 15, 1, 2000);
+		Cliente c4 =  new Cliente("Mauro", "44", "m".charAt(0), 67);
+		ClienteSocio c5 = new ClienteSocio("Mariana", "55", "f".charAt(0), 15, 1, 2000);
+		Cliente c6 =  new Cliente("Tiago", "66", "m".charAt(0), 67);
+		ClienteSocio c7 = new ClienteSocio("Ana", "77", "f".charAt(0), 15, 1, 2000);
+		Cliente c8 =  new Cliente("Bianca", "88", "f".charAt(0), 67);
+		ClienteSocio c9 = new ClienteSocio("Leandro", "99", "m".charAt(0), 15, 1, 2000);
+		Cliente c10 =  new Cliente("Gustavo", "12", "m".charAt(0), 67);
+		ClienteSocio c11 = new ClienteSocio("Lucas", "24", "m".charAt(0), 15, 1, 2000);
+		Cliente c12 =  new Cliente("Guilherme", "35", "m".charAt(0), 67);
+
+		listaClientes.add(c1);
+		listaClientes.add(c2);
+		listaClientes.add(c3);
+		listaClientes.add(c4);
+		listaClientes.add(c5);
+		listaClientes.add(c6);
+		listaClientes.add(c7);
+		listaClientes.add(c8);
+		listaClientes.add(c9);
+		listaClientes.add(c10);
+		listaClientes.add(c11);
+		listaClientes.add(c12);
+
+		lista2 = FXCollections.observableArrayList(listaClientes);
+
+//		historicoClientes.add(c12);
 //		saveData();
 
 	}
@@ -55,8 +83,23 @@ public class MainApp extends Application {
 
 		 this.primaryStage.setTitle("Atividade- Bar");
 
+
 		 loadData();
 		 showTable();
+
+		 primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	            @Override
+	            public void handle(WindowEvent t) {
+	                t.consume();
+
+	               saveData();
+
+	                primaryStage.close();
+	                Platform.exit();
+	                System.exit(0);
+	            }
+	        });
+
 	 }
 
 	 public Stage getPrimaryStage() {
@@ -168,13 +211,37 @@ public class MainApp extends Application {
     		}
     }
 
+    public void showDadosClientes(){
+    	try {
+        	FXMLLoader loader = new FXMLLoader();
+             loader.setLocation(MainApp.class.getResource("/uinterface/dadosClientesScreen.fxml"));
+             AnchorPane page = (AnchorPane) loader.load();
+             Stage dialogStage = new Stage();
+             dialogStage.setTitle("Clientes que estiveram no Bar");
+             dialogStage.initModality(Modality.WINDOW_MODAL);
+             dialogStage.initOwner(primaryStage);
+             Scene scene = new Scene(page);
+             dialogStage.setScene(scene);
+
+             // Define a Cama no controller.
+             dadosClientesController controller = loader.getController();
+             controller.setDialogStage(dialogStage);
+             controller.setMainApp(this);
+
+             dialogStage.showAndWait();
+        	} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    }
+
 
 	public void saveData(){
 
-		Path arq1 = Paths.get("teste.dat");
+		Path arq1 = Paths.get("src/persistence/dadosClientes.dat");
 
 		try (ObjectOutputStream oarq = new ObjectOutputStream(Files.newOutputStream(arq1))) {
-			  oarq.writeObject(listaClientes);
+			  oarq.writeObject(historicoClientes);
 			}
 			catch(IOException e) {
 			  System.out.println(e.getMessage());
@@ -184,11 +251,11 @@ public class MainApp extends Application {
 
 	public void loadData(){
 
-		Path arq1 = Paths.get("teste.dat");
+		Path arq1 = Paths.get("src/persistence/dadosClientes.dat");
 
 		try (ObjectInputStream iarq = new ObjectInputStream(Files.newInputStream(arq1))) {
-		  listaClientes = (ArrayList<Cliente>) iarq.readObject();
-		  lista2 =  FXCollections.observableArrayList(listaClientes);
+		  historicoClientes = (ArrayList<Cliente>) iarq.readObject();
+		  listaOBhistorico =  FXCollections.observableArrayList(historicoClientes);
 
 		}
 		catch(ClassNotFoundException e) {

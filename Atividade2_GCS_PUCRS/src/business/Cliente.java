@@ -18,6 +18,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.genero = genero;
+		this.status = true;
 	}
 
 	public String getNome() {
