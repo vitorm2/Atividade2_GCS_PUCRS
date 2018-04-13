@@ -10,7 +10,7 @@ public class ClienteSocio extends Cliente implements Serializable {
 	private double milhagens;
 
 	public ClienteSocio(String nome, String cpf, char genero, int idade, int numero, double milhagens){
-		super(nome, cpf, genero, numero);
+		super(nome, cpf, genero, idade);
 		this.numero = numero;
 		this.milhagens = milhagens;
 	}

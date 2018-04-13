@@ -18,25 +18,43 @@ class ClienteSocioTest {
 	private int numero = 568;
 	private double milhagens = 22;
 
-	@Before
-	public void set() {cli = new ClienteSocio(nome, CPF, genero, idade, numero, milhagens);}
+
 
 	@Test
-	void testNome() {assertEquals(nome, cli.getNome());}	
+	void testNome() {
+		cli = new ClienteSocio(nome, CPF, genero, idade, numero, milhagens);
+		assertEquals(nome, cli.getNome());
+	}
 
 	@Test
-	void testCPF() {assertEquals(CPF, cli.getCpf());}
-	
+	void testCPF() {
+		cli = new ClienteSocio(nome, CPF, genero, idade, numero, milhagens);
+		assertEquals(CPF, cli.getCpf());
+	}
+
 	@Test
-	void testGenero() {assertEquals(genero, cli.getGenero());}
-	
+	void testGenero() {
+		cli = new ClienteSocio(nome, CPF, genero, idade, numero, milhagens);
+		assertEquals(genero, cli.getGenero());
+	}
+
 	@Test
-	void testIdade() {assertEquals(idade, cli.getIdade());}
-	
+	void testIdade() {
+		cli = new ClienteSocio(nome, CPF, genero, idade, numero, milhagens);
+		assertEquals(idade, cli.getIdade());
+	}
+
 	@Test
-	void testStatus() {cli.setStatus(status); assertEquals(status, cli.getStatus());}
-	
+	void testStatus() {
+		cli = new ClienteSocio(nome, CPF, genero, idade, numero, milhagens);
+		cli.setStatus(status);
+		assertEquals(status, cli.getStatus());
+	}
+
 	@Test
-	void testMilhagem() {cli.adicionarMilhagens(milhagens); assertEquals(milhagens, cli.getMilhagens());}
+	void testMilhagem() {
+		cli = new ClienteSocio(nome, CPF, genero, idade, numero, milhagens);		
+		assertEquals(milhagens, cli.getMilhagens());
+	}
 
 }
