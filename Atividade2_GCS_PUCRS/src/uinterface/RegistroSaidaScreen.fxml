@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="159.0" prefWidth="192.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uinterface.ResgitroSaidaController">
+   <children>
+      <Label layoutX="14.0" layoutY="26.0" text="Informe o CPF do Cliente:" />
+      <TextField fx:id="cpfSaida" layoutX="14.0" layoutY="61.0" />
+      <Button fx:id="confirmaSaida" layoutX="41.0" layoutY="106.0" mnemonicParsing="false" onAction="#buttonConfirmaSaida" text="Registrar Saída" />
+   </children>
+</AnchorPane>

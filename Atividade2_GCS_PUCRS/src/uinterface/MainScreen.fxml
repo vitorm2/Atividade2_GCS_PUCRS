@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uinterface.Controller">
+   <children>
+      <SplitPane dividerPositions="0.7391304347826086" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="358.0">
+               <children>
+                  <TableView fx:id="clienteTable" layoutX="2.0" layoutY="61.0" prefHeight="203.0" prefWidth="439.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="61.0">
+                    <columns>
+                      <TableColumn fx:id="nomeCliente" prefWidth="174.0" text="Nome" />
+                        <TableColumn fx:id="cpfCliente" prefWidth="75.0" text="CPF" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Label layoutX="14.0" layoutY="12.0" text="Nº pessoas no Bar:" AnchorPane.topAnchor="12.0" />
+                  <TextField fx:id="searchTexto" layoutX="439.0" layoutY="468.0" prefHeight="25.0" prefWidth="140.0" />
+                  <Button fx:id="pesquisarButton" layoutX="365.0" layoutY="468.0" mnemonicParsing="false" onAction="#buttonPesquisar" text="Pesquisar" />
+                  <Button fx:id="adicionarClienteButton" layoutY="468.0" mnemonicParsing="false" onAction="#buttonAdicionarCliente" text="Adicionar Cliente" />
+                  <Button fx:id="registrarSaidaClienteButton" layoutX="114.0" layoutY="468.0" mnemonicParsing="false" onAction="#buttonRegistrarSaida" text="Registrar Saída" />
+                  <Label fx:id="numPessoasLabel" layoutX="118.0" layoutY="13.0" text="0" textFill="LIME" />
+                  <Label layoutX="207.0" layoutY="12.0" text="Masc:" />
+                  <Label fx:id="porcMLabel" layoutX="240.0" layoutY="12.0" text="0%" textFill="#071af5" />
+                  <Label layoutX="337.0" layoutY="11.0" text="Fem:" />
+                  <Label fx:id="porcFLabel" layoutX="365.0" layoutY="10.0" text="0%" textFill="#ff0707" />
+                  <Label layoutX="14.0" layoutY="34.0" text="Nº Sócios:" />
+                  <Label fx:id="qtdSociosLabel" layoutX="74.0" layoutY="34.0" text="0" textFill="#f80505" />
+                  <Label layoutX="206.0" layoutY="34.0" text="Nº não Sócios:" />
+                  <Label fx:id="qtdNaoSociosLabel" layoutX="287.0" layoutY="34.0" text="0" textFill="#f50808" />
+                  <Button fx:id="mostrarDadosClienteButton" layoutX="219.0" layoutY="468.0" mnemonicParsing="false" onAction="#buttonDadosClientes" text="Dados Clientes" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="161.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="11.0" text="Informações Cliente:" />
+                  <Label layoutX="14.0" layoutY="40.0" text="Nome:" />
+                  <Label layoutX="14.0" layoutY="68.0" text="CPF:" />
+                  <Label layoutX="14.0" layoutY="95.0" text="Sexo:" />
+                  <Label layoutX="14.0" layoutY="122.0" text="Idade:" />
+                  <Label fx:id="nomeClienteLabel" layoutX="63.0" layoutY="40.0" text="----" />
+                  <Label fx:id="cpfClienteLabel" layoutX="63.0" layoutY="68.0" text="----" />
+                  <Label fx:id="generoClienteLabel" layoutX="63.0" layoutY="95.0" text="----" />
+                  <Label fx:id="idadeClienteLabel" layoutX="63.0" layoutY="122.0" text="----" />
+                  <Label fx:id="infoSocioLabel" layoutX="20.0" layoutY="296.0" text="Informações Sócio:" />
+                  <Label fx:id="campoNumSocioLabel" layoutX="21.0" layoutY="324.0" text="Num:" />
+                  <Label fx:id="numSocioLabel" layoutX="94.0" layoutY="324.0" text="----" />
+                  <Label fx:id="campoMilhagensLabel" layoutX="22.0" layoutY="351.0" text="Milhagens:" />
+                  <Label fx:id="milhagensLabel" layoutX="93.0" layoutY="351.0" text="----" />
+                  <Button fx:id="adicionarMilhagensButton" layoutX="15.0" layoutY="374.0" mnemonicParsing="false" onAction="#buttonAdicionarMilhagens" text="Adicionar Milhagens" />
+                  <Button fx:id="promoverSocioButton" layoutX="13.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonPromoverSocio" text="Promover Sócio" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
